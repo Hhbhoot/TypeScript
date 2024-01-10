@@ -1,6 +1,11 @@
+import dotenv from "dotenv"
 import express from "express";
 import mongoose from "mongoose";
-const port: number = 7070;
+
+dotenv.config({
+  path : './.env'
+})
+const port: number = Number(process.env.PORT);
 const app = express();
 
 import userRoutes from "./routes/user.routes";

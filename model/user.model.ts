@@ -1,4 +1,5 @@
 import mongoose, { Schema, InferSchemaType } from "mongoose";
+import { IUser } from "../interfaces/IUser.interface";
 
 const userschema = new Schema({
   name: { type: String, required: true },
@@ -7,12 +8,13 @@ const userschema = new Schema({
   profileimage : {type : String },
   number : { type : Number},
   gender : { type : String , enum :['male','female']},
+  token : { type : String , default : null},
   isDelete : { type : String , default : false}
 },
 {
   timestamps : true
 });
 
-type user = InferSchemaType<typeof userschema>;
+ const UserCollection = mongoose.model<IUser>('user',userschema)
 
-export default mongoose.model("user", userschema);
+ export default UserCollection ;
