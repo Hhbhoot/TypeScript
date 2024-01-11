@@ -2,7 +2,7 @@ import mongoose, { Schema, InferSchemaType } from "mongoose";
 import { IUser } from "../interfaces/IUser.interface";
 
 const userschema = new Schema({
-  name: { type: String, required: true },
+  username: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String , required : true},
   profileimage : {type : String },

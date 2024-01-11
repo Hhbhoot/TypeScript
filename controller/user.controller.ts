@@ -3,9 +3,9 @@ import { Request, Response } from "express";
 import Jwt from "jsonwebtoken";
 import bcryptjs, { genSalt } from "bcrypt";
 import dotenv from "dotenv";
-dotenv.config({
-  path: "../.env",
-});
+import userRoutes from "../routes/user.routes";
+import passport from "passport";
+import { initializePassport } from "../Helpers/passport";
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -18,7 +18,7 @@ const register = async (req: Request, res: Response) => {
     let hashPassword = await bcryptjs.hash(req.body.password, salt);
 
     let newUser = await User.create({
-      name: req.body.name,
+      username: req.body.username,
       email: req.body.email,
       password: hashPassword,
       profileimage: req.body.profileimage,
@@ -33,6 +33,7 @@ const register = async (req: Request, res: Response) => {
     let token = Jwt.sign(payload, secretKey);
 
     newUser.token = token;
+    newUser.save();
 
     return res.json(newUser);
   } catch (error) {
@@ -41,3 +42,24 @@ const register = async (req: Request, res: Response) => {
   }
 };
 export default register;
+
+export const login = async function(req : Request, res : Response){
+
+  let user : any= req.user
+ console.log(user);
+  return res.json({ message : " Login Successfull",
+                    token : user.token })
+}
+       
+     
+    
+
+    
+
+          
+
+  
+    
+  
+
+
