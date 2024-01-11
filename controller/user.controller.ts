@@ -5,7 +5,6 @@ import bcryptjs, { genSalt } from "bcrypt";
 import dotenv from "dotenv";
 import userRoutes from "../routes/user.routes";
 import passport from "passport";
-import { initializePassport } from "../Helpers/passport";
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -14,15 +13,14 @@ const register = async (req: Request, res: Response) => {
     if (user) {
       return res.json({ message: "User already registered.." });
     }
+     if(req.body.password === req.body.confirmPassword){
+
     let salt = await bcryptjs.genSalt(10);
     let hashPassword = await bcryptjs.hash(req.body.password, salt);
 
     let newUser = await User.create({
-      username: req.body.username,
-      email: req.body.email,
-      password: hashPassword,
-      profileimage: req.body.profileimage,
-      number: req.body.number,
+     ...req.body,
+     password : hashPassword
     });
     await newUser.save();
 
@@ -34,11 +32,14 @@ const register = async (req: Request, res: Response) => {
 
     newUser.token = token;
     newUser.save();
-
-    return res.json(newUser);
+   return res.json(newUser);
+  }
+  else {
+    return res.status(401).json({ message : "Entered passwords are not matching.."})
+  }
   } catch (error) {
     console.log(error);
-    return res.json({ message: "Internal server Error.." });
+    return res.status(500).json({ message: "Internal server Error.." });
   }
 };
 export default register;

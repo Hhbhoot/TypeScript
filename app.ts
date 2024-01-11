@@ -25,7 +25,7 @@ app.use(passport.initialize());
 
 
 async function connect() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/typescript");
+  await mongoose.connect(`${process.env.MANGO_DB_URL}`);
 }
 let connectDB =connect()
   .then(() => {
