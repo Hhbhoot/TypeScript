@@ -6,6 +6,7 @@ import { ThrowError } from "../Helpers/errorHandler";
 import { userService } from "../service/user.service";
 import { IUser } from "../interfaces/IUser.interface";
  const UserService = new userService();
+//  import  {getUser}  from "../Helpers/getuser";
 
  export const register = async (req: Request, res: Response) => {
   try {
@@ -23,13 +24,7 @@ import { IUser } from "../interfaces/IUser.interface";
         password: hashPassword,
       });
 
-      // let payload = {
-      //   userId: newUser._id,
-      // };
-      // let secretKey: any = process.env.JWT_SECRET_KEY;
-      // let token = Jwt.sign(payload, secretKey);
-
-      // newUser.token = token;
+   
     
       return res.json({message : "Register Successful..", Data : newUser});
     } else {
@@ -57,8 +52,8 @@ export const login = async(req : Request , res : Response)=>{
         let payload = {
           userId: user._id,
         };
-        let secretKey: any = process.env.JWT_SECRET_KEY;
-        let token = Jwt.sign(payload, secretKey);
+        let secretKey = process.env.JWT_SECRET_KEY;
+        let token = Jwt.sign(payload, secretKey as string);
         
         let Token = await User.updateOne({email : req.body.email}, { $set : { token : token}})         
       return res.status(200).json({
@@ -73,11 +68,46 @@ export const login = async(req : Request , res : Response)=>{
 }
 }
 
-export const updateProfile = async(req : Request , res : Response)=>{
-  try {
-            
+export const getUserProfile = async(req : Request , res : Response)=>{
+  
+    try {
+      if(req.user){
+        return res.status(200).json(req.user)
+      }   
+    }
+  catch (error) {
+          return ThrowError(response)   
+  } 
+}
 
+export const updateProfile = async(req :Request,res :Response)=>{
+  try {
+          let userObj : any = req.user;
+          let user = await UserService.findByUserIdAndUpdate(userObj._id, {...req.body})
+          if(user){
+             return res.status(201).json({ message : "Profile updated successfully..",Data : user})
+          }
+          else{
+            return res.json({message : "User not Found.."})
+          }
   } catch (error) {
-    
+    return ThrowError(response);
   }
 }
+
+export const deleteProfile = async(req: Request , res :Response)=>{
+   try {
+    let userObj : any = req.user;
+        let user = await UserService.findUserByIdAndDelete(userObj._id)
+        if(user){
+          return res.json({ message : "Profile Deleted Successfully"})
+        }
+        else { 
+          return res.json({message : "Something went wrong.."})
+        }
+      
+   } catch (error) {
+    return ThrowError(response)
+    
+   }
+}  
