@@ -1,11 +1,10 @@
 import express from "express";
-import register, { login } from "../controller/user.controller";
-import passport from "passport";
-
+import {login, register, updateProfile} from '../controller/user.controller'
+import { verifyToken } from "../Helpers/verifytoken";
 const userRoutes = express.Router();
 
 userRoutes.post('/register',register);
-userRoutes.post('/login',passport.authenticate('local') ,login)
-
+userRoutes.post('/login',login)
+userRoutes.put('/updateprofile',verifyToken,updateProfile);
 
 export default userRoutes ;
