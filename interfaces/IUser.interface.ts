@@ -5,6 +5,7 @@ export  interface IUser{
     password : string,
     profileimage? : string,
     mobile_no? : string,
-    token: string
+    token?: string,
+    is_Admin? : boolean
        
 }

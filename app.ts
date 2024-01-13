@@ -1,34 +1,28 @@
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import session from "express-session";
+import path from "path";
+import { connect } from "./Databas/connectDb";
+
+const imagepath = path.join(__dirname, "public/images");
 
 dotenv.config({
-  path : './.env'
-})
+  path: "./.env",
+});
 const port: number = Number(process.env.PORT);
-const app  = express();
+const app = express();
 
-import userRoutes from "./routes/user.routes";
+import user from "./routes/user/index.routes";
 
 app.use(express.json());
-async function connect() {
-  await mongoose.connect(`${process.env.MANGO_DB_URL}`);
-}
-let connectDB =connect()
-  .then(() => {
-    console.log("mongodb Connected...");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
-  app.use('/',userRoutes);
-  
+app.use("/public/images", express.static(imagepath));
+
+app.use("/user", user);
 
 app.listen(port, () => {
-  console.log(`Server is connect at http://localhost:${port}`)
-  connectDB;
+  console.log(`Server is connect at http://localhost:${port}`);
+  connect();
 });
 
 /**

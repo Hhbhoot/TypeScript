@@ -18,9 +18,9 @@ export class userService  {
         return await User.findByIdAndUpdate(id ,{ $set :  body } , {new : true})
      }
 
-     findUserByIdAndDelete = async(id : any )=>{
-        return await User.findOneAndUpdate(id,{ $set : { isDelete : true}})
-     }
+   //   findUserByIdAndDelete = async(id : any )=>{
+   //      return await User.findOneAndUpdate(id,{ $set : { isDelete : true}})
+   //   }
      
      }
 
