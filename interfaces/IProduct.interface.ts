@@ -1,11 +1,12 @@
-export interface IBike  {
-     brand: string;
-     model: string;
-     year: number;
-     price: number;
-     seller: {
-       name: string;
-       contact: string;
-       location: string;
+export interface IProduct  {
+     brand?: string;
+     model?: string;
+     year?: number;
+     price?: number;
+     image ?: string,
+     owner?: {
+       name?: string;
+       contact?: string;
+       location?: string;
      };
    }

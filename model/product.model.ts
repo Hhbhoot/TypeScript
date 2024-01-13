@@ -1,39 +1,42 @@
 import mongoose, { Schema } from "mongoose";
-import { IBike } from "../interfaces/IProduct.interface";
+import { IProduct} from "../interfaces/IProduct.interface";
 
-const BikeSchema: Schema = new Schema({
+const productSchema: Schema = new Schema({
   brand: {
     type: String,
-    required: true,
+    
   },
   model: {
     type: String,
-    required: true,
+    
   },
   year: {
     type: Number,
-    required: true,
+    
   },
   price: {
     type: Number,
-    required: true,
+    // required: true
   },
-  seller: {
+  profileimage : [{
+     type : String,
+  }],
+  owner: {
     name: {
       type: String,
-      required: true,
+      // required: true,
     },
     contact: {
       type: String,
-      required: true,
+      // required: true,
     },
     location: {
       type: String,
-      required: true,
+      // required: true,
     },
   },
 });
 
-const BikeModel = mongoose.model<IBike>('Bike', BikeSchema);
+const productCollection = mongoose.model<IProduct>('product', productSchema);
 
-export default BikeModel;
+export default productCollection;

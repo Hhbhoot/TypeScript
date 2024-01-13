@@ -13,7 +13,7 @@ declare global {
 export const verifyToken = async(req : Request , res : Response , next : NextFunction)=>{
     try{
       let token : any= req.headers['authorization']?.split(" ")[1];
-      // console.log(token)
+      console.log(token)
       if(!token){
         return res.json({ message : "token not found"})
       }
@@ -22,7 +22,7 @@ export const verifyToken = async(req : Request , res : Response , next : NextFun
      
       let {userId} : any = jwt.verify(token,secretKey)
       let user = await  User.findById(userId)
-    
+  
       if(user){
          req.user = user ;
          next();
@@ -32,6 +32,6 @@ export const verifyToken = async(req : Request , res : Response , next : NextFun
       }
     }
       catch(error){
-        return ThrowError(response)
+        return res.json(error)
       }
 }

@@ -13,12 +13,13 @@ const port: number = Number(process.env.PORT);
 const app = express();
 
 import user from "./routes/user/index.routes";
-
+import admin from "./routes/admin/index.routes";
 app.use(express.json());
 
 app.use("/public/images", express.static(imagepath));
-
 app.use("/user", user);
+app.use('/admin',admin);
+
 
 app.listen(port, () => {
   console.log(`Server is connect at http://localhost:${port}`);
