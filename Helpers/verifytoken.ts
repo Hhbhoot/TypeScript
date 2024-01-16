@@ -13,7 +13,7 @@ declare global {
 export const verifyToken = async(req : Request , res : Response , next : NextFunction)=>{
     try{
       let token : any= req.headers['authorization']?.split(" ")[1];
-      console.log(token)
+      // console.log(token)
       if(!token){
         return res.json({ message : "token not found"})
       }

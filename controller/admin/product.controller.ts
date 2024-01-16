@@ -8,34 +8,58 @@ const ProductService = new productService();
 
 export const addProduct = async (req: Request, res: Response) => {
   try {
-    console.log(req.body)
+    let image: string[] = [];
     if (req.file) {
-      req.body.profileimage = `${req.file.path.replace(/\\/g, "/")}`;
+      image[0] = `${req.file.path.replace(/\\/g, "/")}`;
     }
-    // const product = await Product.create({
-    //     brand : req.body.brand ,
-    //     model : req.body.model,
-    //     year : req.body.model,
-    //     price : req.body.model,
-    //     profileimage : req.body.profileimage,
-    //     // owner: {
-    //     //   name: owner.name,
-    //     //   contact: owner.contact,
-    //     //   location: owner.location
-    //     // }
-    //   });
-
-    // await product.save();
-
-    // if (product) {
-    //   return res
-    //     .status(201)
-    //     .json({ message: "Product added successfully..", product });
-    // } else {
-    //   return res.json({ message: "Somethong went wrong.." });
-    // }
+    let product = await ProductService.addProduct(req.body);
+    let updateProduct = await ProductService.updateById(product._id, {
+      image: image[0],
+    });
+    if (product && updateProduct) {
+      return res.status(201).json({ message: "Product added successfully.." });
+    } else {
+      return res.json({ message: "Somethong went wrong.." });
+    }
   } catch (error) {
     console.log(error);
     return ThrowError(response);
+  }
+};
+
+export const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId , price} = req.body;
+
+    let product = await ProductService.updateById(productId, { price: price });
+    if (product) {
+      return res
+        .status(200)
+        .json({ message: "Product Updated successfully..." });
+    } else {
+      return res.json({ message: "Something went wrong.." });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+};
+
+export const removeProduct = async (req: Request, res: Response) => {
+  try {
+    const productId  = req.body;
+    let product = await ProductService.updateById(productId, {
+      isDelete: true,
+    });
+    if (product) {
+      return res
+        .status(200)
+        .json({ message: "Product remove4d successfully.." });
+    } else {
+      return res.status(404).json({ message: "Someething Went wrong.." });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error.." });
   }
 };

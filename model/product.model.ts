@@ -4,37 +4,49 @@ import { IProduct} from "../interfaces/IProduct.interface";
 const productSchema: Schema = new Schema({
   brand: {
     type: String,
+    required : true
     
   },
   model: {
     type: String,
+    required : true
     
   },
   year: {
     type: Number,
+    required : true
     
   },
   price: {
     type: Number,
-    // required: true
+    required : true
   },
-  profileimage : [{
+  image : [{
      type : String,
+     required: true
   }],
+category : {
+   type : String,
+   required : true
+},
   owner: {
     name: {
       type: String,
-      // required: true,
+      required: true,
     },
     contact: {
       type: String,
-      // required: true,
+      required: true,
     },
     location: {
       type: String,
-      // required: true,
+    required: true,
     },
   },
+  isDelete : {
+    type : Boolean,
+    default : false
+  }
 });
 
 const productCollection = mongoose.model<IProduct>('product', productSchema);
