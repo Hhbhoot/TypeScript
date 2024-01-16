@@ -17,7 +17,7 @@ declare global {
 
 export const register = async (req: Request, res: Response) => {
   try {
-    let user = await UserService.findUser({ email: req.body.email });
+    let user = await UserService.findUser({ email: req.body.email , isDelete : false});
 
     if (user) {
       return res.json({ message: "User already registered.." });

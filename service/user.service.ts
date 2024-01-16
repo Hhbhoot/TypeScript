@@ -5,7 +5,11 @@ export class userService  {
      createUser = async( body : any) =>{
          return await User.create(body)
      };
-
+ 
+     findAllUser = async()=>{
+      return await User.find({isDelete : false , is_Admin : false})
+     } 
+ 
      findUser = async(body : any)=>{
         return await User.findOne(body)
      };
@@ -15,7 +19,7 @@ export class userService  {
      }
 
      findByUserIdAndUpdate =async(id : any, body : any)=>{
-        return await User.findByIdAndUpdate(id ,{ $set :  body } , {new : true})
+        return await User.findByIdAndUpdate({id ,isDelete : false},{ $set :  body } , {new : true})
      }
 
    //   findUserByIdAndDelete = async(id : any )=>{

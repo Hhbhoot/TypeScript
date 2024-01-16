@@ -61,10 +61,28 @@ export const updateCart = async (req: Request, res: Response) => {
     if (cart) {
       return res.status(200).json({ message: "Cart Updated successfully.." });
     } else {
-      return res.status(400).json({ message: "something went wrong.." });
+      return res.status(400).json({ message: "Cart not found.." });
     }
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Internal server error.." });
   }
 };
+
+export const removeFromCart = async(req :Request , res : Response)=>{
+  try {
+     const { productId} = req.body ;
+     let userObj = req.user;
+     let cart = await CartService.findCartAndUpdate(req.user._id,productId,{ isDelete : true});
+     if(cart){
+       return res.status(200).json({ message : "Item removed from cart successfully..."})
+     }
+     else{
+      return res.status(400).json({message : "cart not found.."})
+     }
+    
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message : "Internal Server error.."})
+  }
+}

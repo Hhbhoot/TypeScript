@@ -14,7 +14,9 @@ const app = express();
 
 import user from "./routes/user/index.routes";
 import admin from "./routes/admin/index.routes";
+import morgan from "morgan";
 app.use(express.json());
+app.use(morgan('dev'));
 
 app.use("/public/images", express.static(imagepath));
 app.use("/user", user);
