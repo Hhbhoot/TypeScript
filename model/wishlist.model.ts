@@ -7,15 +7,20 @@ const wishlistSchema = new Schema({
          type : mongoose.Schema.Types.ObjectId,
          ref : "user"
     },
-    item : [{
-         cartitem : {
+    
+    cartitem : [{
              type : mongoose.Schema.Types.ObjectId,
              ref : "product"
-         }
+         
     }],
     added_At : {
         type : Date,
         default : Date.now()
+    },
+    isDelete : {
+        type : Boolean,
+        default: false
+
     }
 },
 { timestamps : true});

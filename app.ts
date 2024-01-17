@@ -20,6 +20,7 @@ app.use(morgan('dev'));
 
 app.use("/public/images", express.static(imagepath));
 
+
 app.use("/user", user);
 app.use('/admin',admin);
 

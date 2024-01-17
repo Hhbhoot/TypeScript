@@ -21,7 +21,7 @@ export const addToWishlist = async(req : Request , res : Response)=>{
         
         let newWishlist : IWishlist = await wishlistCollection.create({
               user : req.user._id,
-              'item.cartitem' : cartitem,
+              cartitem: productId,
               added_At : Date.now()
         })
 
@@ -56,3 +56,22 @@ export const removeFromWishlist = async(req : Request , res: Response)=>{
         return res.status(500).json({ mesage : "Internal server error..."})
      }
 }
+
+export const getUserWishlist =async(req : Request , res : Response)=>{
+   try {
+         let wishlist = await WishlistService.getUserWatchlist(req.user._id);
+          if(wishlist.length == 0 ){
+            return res.json({ message : "you have not added anything in wishlist.."})
+          }
+         else if(wishlist){
+            return res.status(200).json(wishlist);
+         }
+         else{
+          return res.status(400).json({ message : "Something went wrong.."})
+         }
+    
+   } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message : "Internal server error.."})
+   }
+} 
