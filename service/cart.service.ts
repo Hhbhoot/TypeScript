@@ -16,5 +16,8 @@ export class cartService{
     }
     findCartByUserId= async(id : string)=>{
          return await Cart.findOne({user : new mongoose.Types.ObjectId(id)});
+    }
+    findCartAndPopulate = async(id : string )=>{
+        return await Cart.find({user : id  , isDelete : false}).populate('cartitem');
     } 
 }
