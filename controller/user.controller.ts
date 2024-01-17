@@ -24,7 +24,7 @@ export const register = async (req: Request, res: Response) => {
     }
     if (req.body.password === req.body.confirmPassword) {
       let salt = await bcryptjs.genSalt(10);
-      let hashPassword = await bcryptjs.hash(req.body.password, salt);
+      let hashPassword : string | undefined = await bcryptjs.hash(req.body.password, salt);
 
        let filepath : any ;
       if(req.file){

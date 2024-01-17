@@ -20,6 +20,6 @@ const wishlistSchema = new Schema({
 },
 { timestamps : true});
 
-const wishlishCollection = mongoose.model<IWishlist>('wishlist',wishlistSchema);
+const wishlistCollection = mongoose.model<IWishlist>('wishlist',wishlistSchema);
 
-export default wishlishCollection ;
+export default wishlistCollection ;

@@ -6,6 +6,7 @@ interface cartitem{
 
 export interface IWishlist {
  
+     _id? : string, 
      user : Schema.Types.ObjectId,
      item: cartitem[],
      added_At : Date
