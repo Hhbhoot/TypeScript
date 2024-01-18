@@ -35,3 +35,19 @@ export const getSpecificProduct = async(req :Request , res: Response)=>{
          return res.status(500).json({ message : "Internal server Error.."})
     }
 }
+
+export const getProductByCategory = async(req : Request , res : Response)=>{
+   try {
+        let{ category} = req.query;
+        let product = await ProductService.findByCategory(category);
+        if(product){
+          return res.status(200).json(product);
+        }
+        else{
+          return res.json({ message : "Product not found..something went wrong."})
+        }
+   } catch (error) {
+    console.log(error);
+    return res.status(500).json({message : "Internal server error.."})
+   }
+}
