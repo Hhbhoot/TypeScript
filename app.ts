@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import express from "express";
-import mongoose from "mongoose";
 import path from "path";
 import { connect } from "./Databas/connectDb";
 
@@ -16,6 +15,7 @@ import user from "./routes/user/index.routes";
 import admin from "./routes/admin/index.routes";
 import morgan from "morgan";
 app.use(express.json());
+app.use(express.urlencoded({ extended : false}))
 app.use(morgan('dev'));
 
 app.use("/public/images", express.static(imagepath));
