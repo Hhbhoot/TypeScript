@@ -38,7 +38,7 @@ export const addToOrder = async (req: Request, res: Response) => {
     let endDate = new Date();
     endDate.setMonth(startDate.getMonth() + 1);
 
-    let newOrder: IOrder = await Order.create({
+    let newOrder = await Order.create({
       user: req.user._id,
       item: orderItems,
       startDate: startDate,
