@@ -33,7 +33,10 @@
   "main": "app.ts",
   
   "scripts": {
-    "dev": "nodemon app.ts"
+    
+      "build": "tsc",
+       "start": "app.ts",
+      "dev": "nodemon app.ts"
   },
   "author": "Hitesh Bhoot",
   "license": "ISC",
