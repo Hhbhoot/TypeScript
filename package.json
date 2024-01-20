@@ -35,7 +35,7 @@
   "scripts": {
     
       "build": "tsc",
-       "start": "app.ts",
+       "start": "node app.ts",
       "dev": "nodemon app.ts"
   },
   "author": "Hitesh Bhoot",
