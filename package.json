@@ -31,12 +31,10 @@
   "name": "typescript",
   "version": "1.0.0",
   "main": "app.ts",
-  
   "scripts": {
-    
-      "build": "tsc",
-       "start": "node app.ts",
-      "dev": "nodemon app.ts"
+    "build": "tsc",
+    "dev": "node app.ts",
+    "start": "nodemon app.ts"
   },
   "author": "Hitesh Bhoot",
   "license": "ISC",
