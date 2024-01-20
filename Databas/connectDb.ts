@@ -3,7 +3,8 @@ import { response} from "express";
 
 export async function connect() {
     try {
-    await mongoose.connect(`${process.env.MANGO_DB_URL}`);
+    // await mongoose.connect("mongodb+srv://hitesh0072:Hitesh123%40@cluster0.z6nwigf.mongodb.net/TypeScript");
+    await mongoose.connect(`${process.env.MONGO_DB_URL}`);
     console.log("DB connected..")
 
     } catch (error) {
