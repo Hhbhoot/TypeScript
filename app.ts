@@ -1,13 +1,11 @@
 import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import path from "path";
 import { connect } from "./Databas/connectDb";
 
 const imagepath = path.join(__dirname, "public/images");
 
-dotenv.config({
-  path: "./.env",
-});
 const port: number = Number(process.env.PORT);
 const app = express();
 

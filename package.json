@@ -30,11 +30,12 @@
   },
   "name": "typescript",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.ts",
+  
   "scripts": {
     "dev": "nodemon app.ts"
   },
-  "author": "",
+  "author": "Hitesh Bhoot",
   "license": "ISC",
   "description": ""
 }
