@@ -2,7 +2,6 @@ import Product from "../../model/product.model";
 import { IProduct } from "../../interfaces/IProduct.interface";
 import { Request, Response, json, response } from "express";
 import { productService } from "../../service/product.service";
-import { ThrowError } from "../../Helpers/errorHandler";
 import { name } from "ejs";
 const ProductService = new productService();
 
@@ -23,7 +22,8 @@ export const addProduct = async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.log(error);
-    return ThrowError(response);
+    return res.status(500).json(error)
+
   }
 };
 

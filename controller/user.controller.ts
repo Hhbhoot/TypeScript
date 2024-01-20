@@ -2,7 +2,6 @@ import User from "../model/user.model";
 import { Request, Response, response } from "express";
 import Jwt from "jsonwebtoken";
 import bcryptjs, { genSalt } from "bcrypt";
-import { ThrowError } from "../Helpers/errorHandler";
 import { userService } from "../service/user.service";
 import { IUser } from "../interfaces/IUser.interface";
 const UserService = new userService();
@@ -44,7 +43,8 @@ export const register = async (req: Request, res: Response) => {
         .json({ message: "Entered passwords are not matching.." });
     }
   } catch (error) {
-    return ThrowError(response);
+    return res.status(500).json(error)
+
   }
 };
 
@@ -84,7 +84,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Pls Enter Coorect Password.." });
     }
   } catch (err) {
-    return ThrowError(response);
+    return res.status(500).json(err)
   }
 };
 
@@ -94,7 +94,7 @@ export const getUserProfile = async (req: Request, res: Response) => {
       return res.status(200).json(req.user);
     }
   } catch (error) {
-    return ThrowError(response);
+    return res.status(500).json(error)
   }
 };
 
@@ -112,7 +112,7 @@ export const updateProfile = async (req: Request, res: Response) => {
       return res.json({ message: "User not Found.." });
     }
   } catch (error) {
-    return ThrowError(response);
+    return res.status(500).json(error)
   }
 };
 
@@ -126,7 +126,7 @@ export const deleteProfile = async (req: Request, res: Response) => {
       return res.json({ message: "Something went wrong.." });
     }
   } catch (error) {
-    return ThrowError(response);
+    return res.status(500).json(error)
   }
 };
 
@@ -182,7 +182,8 @@ export const changePassword = async (req: Request, res: Response) => {
       }
     }
   } catch (error) {
-    return ThrowError(response);
+    return res.status(500).json(error)
+
   }
 };
 
@@ -201,6 +202,7 @@ export const logout = async(req : Request , res :Response)=>{
 
   } catch (error) {
     console.log(error)
-    return ThrowError(response);
+    return res.status(500).json(error)
+
   }
 }

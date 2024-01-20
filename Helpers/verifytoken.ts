@@ -1,7 +1,6 @@
 import { Request,Response,NextFunction, response } from "express";
 import jwt  from "jsonwebtoken";
 import User from '../model/user.model';
-import { ThrowError } from "./errorHandler";
 
 declare global {
   namespace Express {
